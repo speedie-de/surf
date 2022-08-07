@@ -29,6 +29,7 @@ config.h:
 
 $(OBJ): $(SRC)
 	$(CC) $(SURFCFLAGS) $(CFLAGS) -c $(SRC)
+	rm config.h
 
 $(WLIB): $(WOBJ)
 	$(CC) -shared -Wl,-soname,$@ $(LDFLAGS) -o $@ $? $(WEBEXTLIBS)

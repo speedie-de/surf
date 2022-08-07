@@ -1,19 +1,22 @@
-// speedie's surf configuration
-// https://github.com/speediegamer/configurations
+/* speedie's surf configuration
+ * https://github.com/speedie-de/surf
+ *
+ * You'll probably wanna change a few settings below,*/
 
 /* modifier 0 means no modifier */
 static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
 static char *fulluseragent  = "leet"; /* Or override the whole user agent string */
 static int extendedtitle    = 0;
-static char *scriptfile     = "~/.surf/script.js";
-static char *styledir       = "~/.surf/styles/";
-static char *certdir        = "~/.surf/certificates/";
-static char *cachedir       = "~/.surf/cache/";
-static char *cookiefile     = "~/.surf/cookies.txt";
+static char *scriptfile     = "~/.local/share/.surf/script.js";
+static char *styledir       = "~/.local/share/.surf/styles/";
+static char *certdir        = "~/.local/share/.surf/certificates/";
+static char *cachedir       = "~/.local/share/.surf/cache/";
+static char *cookiefile     = "~/.local/share/.surf/cookies.txt";
+static char *historyfile    = "~/.local/share/.surf/history/txt";
+static char *dlstatus       = "~/.local/share/.surf/dlstatus/";
 static char *dldir          = "~/Downloads/";
-static char *dlstatus       = "~/.surf/dlstatus/";
-static char *searchengine = "https://duckduckgo.com/?q=";
-#define HOMEPAGE "https://duckduckgo.com/"
+static char *searchengine   = "https://searx.org/?q=";
+#define HOMEPAGE              "https://searx.org"
 
 /* Webkit default features */
 /* Highest priority value will be used.
@@ -79,7 +82,7 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
              "prop=\"$(printf '%b' \"$(xprop -id $1 "r" " \
              "| sed -e 's/^"r"(UTF8_STRING) = \"\\(.*\\)\"/\\1/' " \
              "      -e 's/\\\\\\(.\\)/\\1/g')\" " \
-             "| ~/.config/dmenu/dmenu -p '"p"' -w $1)\" " \
+             "| dmenu -b -p '"p"' -w $1)\" " \
              "&& xprop -id $1 -f "s" 8u -set "s" \"$prop\"", \
              "surf-setprop", winid, NULL \
         } \
@@ -139,7 +142,7 @@ static SiteSpecific certs[] = {
 static Key keys[] = {
 	/* modifier              keyval          function    arg */
 	{ MODKEY,                GDK_KEY_comma,  spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
-	{ MODKEY,                GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+	{ MODKEY,                GDK_KEY_f,          spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 
 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
@@ -154,10 +157,10 @@ static Key keys[] = {
 	/* vertical and horizontal scrolling, in viewport percentage */
 	{ MODKEY,                GDK_KEY_j,      scrollv,    { .i = +10 } },
 	{ MODKEY,                GDK_KEY_k,      scrollv,    { .i = -10 } },
-	{ MODKEY,                GDK_KEY_space,  scrollv,    { .i = +50 } },
-	{ MODKEY,                GDK_KEY_b,      scrollv,    { .i = -50 } },
-	{ MODKEY,                GDK_KEY_i,      scrollh,    { .i = +10 } },
-	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } },
+	{ MODKEY,                GDK_KEY_u,      scrollv,    { .i = +50 } },
+	{ MODKEY,                GDK_KEY_d,      scrollv,    { .i = -50 } },
+	{ MODKEY,                GDK_KEY_h,      scrollh,    { .i = +10 } },
+	{ MODKEY,                GDK_KEY_l,      scrollh,    { .i = -10 } },
 
 
 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
@@ -204,5 +207,3 @@ static Button buttons[] = {
 	{ OnAny,        0,              9,      clicknavigate,  { .i = +1 },    1 },
 	{ OnMedia,      MODKEY,         1,      clickexternplayer, { 0 },       1 },
 };
-
-#define HOMEPAGE "https://duckduckgo.com/"
